@@ -1,10 +1,4 @@
 <?
-function v($var){
-    echo "<pre style='padding:10px;background: lightblue'>";
-    print_r($var);
-    echo "</pre>";
-}
-
 session_start();
 if(isset($_COOKIE['count'])){
     $cook = ++$_COOKIE['count'];
@@ -14,8 +8,8 @@ if(isset($_COOKIE['count'])){
     setcookie('count',$cook);
 }
 //var_dump($cook);
-$file = fopen('count.txt',w) or die('error open file for counting of loading image');
-fwrite($file,"count of loading image was $cook time")or die('error write of count loading image');
+$file = fopen('counts.txt',r) or die(error_get_last());
+fwrite($file,"count of loading image was $cook time") or die(error_get_last());
 $contents = file_get_contents('pick.jpg');
 header('Content-type: image/jpeg');
 echo $contents;
