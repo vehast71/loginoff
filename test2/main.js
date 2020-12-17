@@ -17,11 +17,14 @@ $(function(){
             ,operandFload1
             ,operator
             ,operand2
-            ,operandFload2;
+            ,operandFload2
+            ,val
+            ,regexp
+            ,arr;
 
-        let val = $('#val').val();
-        let regexp = /^(\d+)(\.\d+)?(\+|\-|\*|\/)(\d+)(\.\d+)?$/;
-        let arr = val.match(regexp);
+        val = $('#val').val();
+        regexp = /^(\d+)(\.\d+)?(\+|\-|\*|\/)(\d+)(\.\d+)?$/;
+        arr = val.match(regexp);
         if(arr){
             operator = arr[3];
             operandFload1 = arr[2];
