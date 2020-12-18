@@ -1,1 +1,1 @@
-count of loading image was 2 time
+count of loading image was 18 time
