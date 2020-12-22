@@ -11,7 +11,8 @@ $(function(){
             ,SUB = '-'
             ,MULTI = '*'
             ,DIV = '/'
-            ,COMMENT = 'ввод данных не соответствует формату';
+            ,COMMENT = 'ввод данных не соответствует формату'
+            ,COMMENT2 = 'на ноль делить нельзя';
         let result
             ,operand1
             ,operandFload1
@@ -25,22 +26,21 @@ $(function(){
         val = $('#val').val();
         regexp = /^(\d+)(\.\d+)?(\+|\-|\*|\/)(\d+)(\.\d+)?$/;
         arr = val.match(regexp);
-        if(arr){
+        if(arr) {
             operator = arr[3];
             operandFload1 = arr[2];
             operandFload2 = arr[5];
-            if(operandFload1){
+            if (operandFload1) {
                 operand1 = Number(arr[1] + arr[2]);
-            }else{
+            } else {
                 operand1 = Number(arr[1]);
             }
-            if(operandFload2){
+            if (operandFload2) {
                 operand2 = Number(arr[4] + arr[5]);
-            }else{
+            } else {
                 operand2 = Number(arr[4]);
             }
-            //console.log('test:',operand1,operand2,operandFload1,operandFload2,operator,Number(arr[4] + arr[5]));
-            switch(operator){
+            switch (operator) {
                 case SUM:
                     result = operand1 + operand2;
                     break;
@@ -52,11 +52,17 @@ $(function(){
                     break;
                 case DIV:
                     result = operand1 / operand2;
+                    if (operand2 === 0) {
+                        result = COMMENT2;
+                        $('#result').addClass('error');
+                        $('#result').hide().html(result).fadeIn(500);
+                        return;
+                    }
                     break;
             }
-            if(isFloat(result)){
+            if (isFloat(result)) {
                 result = Number(result).toFixed(5);
-            }else{
+            } else {
                 result = Number(result);
             }
             $('#result').removeClass('error');
